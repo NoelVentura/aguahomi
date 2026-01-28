@@ -1,0 +1,98 @@
+---
+// ThemeToggle.astro - Interruptor para modo claro/oscuro
+// Guarda la preferencia del usuario en localStorage
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  class="relative inline-flex items-center justify-center w-12 h-12 
+         rounded-full bg-agua-100 dark:bg-slate-700 
+         hover:bg-agua-200 dark:hover:bg-slate-600
+         transition-all duration-300 ease-out
+         focus:outline-none focus:ring-4 focus:ring-agua-300 dark:focus:ring-agua-700
+         group"
+  aria-label="Cambiar entre modo claro y oscuro"
+  title="Cambiar tema"
+>
+  <!-- Ícono de Sol (visible en modo oscuro) -->
+  <svg
+    id="sun-icon"
+    class="w-6 h-6 text-yellow-400 transition-all duration-300 
+           scale-0 opacity-0 dark:scale-100 dark:opacity-100
+           absolute"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+    />
+  </svg>
+
+  <!-- Ícono de Luna (visible en modo claro) -->
+  <svg
+    id="moon-icon"
+    class="w-6 h-6 text-agua-700 transition-all duration-300 
+           scale-100 opacity-100 dark:scale-0 dark:opacity-0
+           absolute"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+    />
+  </svg>
+</button>
+
+<script>
+  // Función para inicializar el tema
+  function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Verificar preferencia guardada o preferencia del sistema
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Aplicar tema inicial
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Manejar click en el botón
+    themeToggle?.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+
+    // Escuchar cambios en preferencia del sistema
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    });
+  }
+
+  // Inicializar cuando el DOM esté listo
+  initTheme();
+
+  // Re-inicializar en navegación de Astro (View Transitions)
+  document.addEventListener('astro:after-swap', initTheme);
+</script>

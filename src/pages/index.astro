@@ -1,11 +1,356 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// index.astro - Página de inicio de AGUAHOMI
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Datos de las características
+const features = [
+  {
+    icon: '🍃',
+    title: 'Ingredientes Naturales',
+    description: 'Utilizamos frutas frescas y ingredientes 100% naturales para crear bebidas que nutren y refrescan.',
+  },
+  {
+    icon: '💧',
+    title: 'Frescura Garantizada',
+    description: 'Preparadas diariamente para asegurar el sabor más fresco y delicioso en cada sorbo.',
+  },
+  {
+    icon: '❤️',
+    title: 'Hechas con Amor',
+    description: 'Cada agua de sabor es preparada con dedicación y el cariño que mereces en tu día.',
+  },
+];
+
+// Datos de los sabores destacados
+const featuredFlavors = [
+  {
+    name: 'Jamaica',
+    description: 'El clásico sabor de la flor de jamaica, refrescante y lleno de antioxidantes.',
+    color: 'from-rose-400 to-red-600',
+    emoji: '🌺',
+  },
+  {
+    name: 'Horchata',
+    description: 'Cremosa y dulce, con el sabor tradicional del arroz y canela que todos amamos.',
+    color: 'from-amber-200 to-orange-400',
+    emoji: '🍚',
+  },
+  {
+    name: 'Limón con Chía',
+    description: 'Cítrico y energizante, con semillas de chía para un boost de nutrientes.',
+    color: 'from-lime-300 to-green-500',
+    emoji: '🍋',
+  },
+  {
+    name: 'Tamarindo',
+    description: 'Agridulce y tropical, el sabor perfecto para los días más calurosos.',
+    color: 'from-amber-600 to-yellow-800',
+    emoji: '🌴',
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout 
+  title="Aguas de Sabor Frescas y Naturales"
+  description="AGUAHOMI te ofrece las aguas de sabor más deliciosas y refrescantes. Ingredientes naturales, frescura diaria y sabores que te encantarán."
+>
+  <!-- Hero Section -->
+  <section 
+    class="relative min-h-[90vh] flex items-center overflow-hidden
+           bg-gradient-to-br from-agua-50 via-fresca-50 to-white
+           dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
+    aria-labelledby="hero-title"
+  >
+    <!-- Decoraciones de fondo -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <!-- Círculos decorativos -->
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-agua-200/40 dark:bg-agua-800/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-fresca-200/40 dark:bg-fresca-800/20 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sabor-100/30 dark:bg-sabor-900/10 rounded-full blur-3xl"></div>
+      
+      <!-- Gotas de agua animadas -->
+      <svg class="absolute top-20 left-10 w-8 h-8 text-agua-300 dark:text-agua-700 animate-float" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C12 2 5 10 5 14.5C5 18.09 8.13 21 12 21C15.87 21 19 18.09 19 14.5C19 10 12 2 12 2Z"/>
+      </svg>
+      <svg class="absolute top-40 right-20 w-6 h-6 text-fresca-300 dark:text-fresca-700 animate-float" style="animation-delay: 0.5s" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C12 2 5 10 5 14.5C5 18.09 8.13 21 12 21C15.87 21 19 18.09 19 14.5C19 10 12 2 12 2Z"/>
+      </svg>
+      <svg class="absolute bottom-40 left-1/4 w-10 h-10 text-sabor-300 dark:text-sabor-700 animate-float" style="animation-delay: 1s" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C12 2 5 10 5 14.5C5 18.09 8.13 21 12 21C15.87 21 19 18.09 19 14.5C19 10 12 2 12 2Z"/>
+      </svg>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Badge -->
+        <div 
+          class="inline-flex items-center gap-2 px-4 py-2 mb-6
+                 bg-agua-100 dark:bg-agua-900/50 
+                 text-agua-700 dark:text-agua-300
+                 rounded-full text-sm font-medium
+                 animate-fade-in"
+        >
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-agua-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-agua-500"></span>
+          </span>
+          Frescura natural cada día
+        </div>
+
+        <!-- Título principal -->
+        <h1 
+          id="hero-title"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold 
+                 text-agua-900 dark:text-white mb-6
+                 animate-slide-up"
+        >
+          Refresca tu día con
+          <span class="text-gradient block mt-2">AGUAHOMI</span>
+        </h1>
+
+        <!-- Descripción -->
+        <p 
+          class="text-lg md:text-xl text-agua-700 dark:text-agua-200 
+                 max-w-2xl mx-auto mb-8 leading-relaxed
+                 animate-slide-up"
+          style="animation-delay: 0.1s"
+        >
+          Descubre nuestras deliciosas aguas de sabor, preparadas con ingredientes 
+          naturales y mucho amor. El sabor de lo fresco, directo a tu paladar.
+        </p>
+
+        <!-- Botones CTA -->
+        <div 
+          class="flex flex-col sm:flex-row items-center justify-center gap-4
+                 animate-slide-up"
+          style="animation-delay: 0.2s"
+        >
+          <a 
+            href="/sabores" 
+            class="btn-primary text-lg group"
+          >
+            Ver Sabores
+            <svg 
+              class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a 
+            href="/contacto" 
+            class="btn-secondary text-lg"
+          >
+            Contáctanos
+          </a>
+        </div>
+
+        <!-- Estadísticas -->
+        <div 
+          class="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-agua-200 dark:border-slate-700
+                 animate-fade-in"
+          style="animation-delay: 0.4s"
+        >
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-agua-600 dark:text-agua-400">10+</p>
+            <p class="text-sm text-agua-600 dark:text-agua-300 mt-1">Sabores únicos</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-fresca-600 dark:text-fresca-400">100%</p>
+            <p class="text-sm text-agua-600 dark:text-agua-300 mt-1">Natural</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-sabor-600 dark:text-sabor-400">∞</p>
+            <p class="text-sm text-agua-600 dark:text-agua-300 mt-1">Amor en cada sorbo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div 
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
+      aria-hidden="true"
+    >
+      <svg class="w-6 h-6 text-agua-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Características Section -->
+  <section 
+    class="section-padding bg-white dark:bg-slate-900"
+    aria-labelledby="features-title"
+  >
+    <div class="container-custom">
+      <!-- Encabezado de sección -->
+      <div class="text-center mb-12 md:mb-16">
+        <h2 id="features-title" class="section-title">
+          ¿Por qué elegir <span class="text-gradient">AGUAHOMI</span>?
+        </h2>
+        <p class="section-subtitle">
+          Nos dedicamos a crear las mejores aguas de sabor para ti y tu familia
+        </p>
+      </div>
+
+      <!-- Grid de características -->
+      <div 
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+        role="list"
+      >
+        {features.map((feature, index) => (
+          <article 
+            class="glass-card p-8 text-center hover:shadow-2xl 
+                   transform hover:-translate-y-2 transition-all duration-300"
+            role="listitem"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            <div 
+              class="w-16 h-16 mx-auto mb-6 flex items-center justify-center
+                     text-4xl bg-agua-100 dark:bg-slate-700 rounded-2xl"
+              aria-hidden="true"
+            >
+              {feature.icon}
+            </div>
+            <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-3">
+              {feature.title}
+            </h3>
+            <p class="text-agua-600 dark:text-agua-300 leading-relaxed">
+              {feature.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sabores Destacados Section -->
+  <section 
+    class="section-padding bg-agua-50 dark:bg-slate-800"
+    aria-labelledby="flavors-title"
+  >
+    <div class="container-custom">
+      <!-- Encabezado de sección -->
+      <div class="text-center mb-12 md:mb-16">
+        <h2 id="flavors-title" class="section-title">
+          Nuestros Sabores <span class="text-gradient">Favoritos</span>
+        </h2>
+        <p class="section-subtitle">
+          Explora nuestra selección de aguas de sabor más populares
+        </p>
+      </div>
+
+      <!-- Grid de sabores -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {featuredFlavors.map((flavor, index) => (
+          <article 
+            class="group relative overflow-hidden rounded-2xl 
+                   bg-white dark:bg-slate-900 shadow-lg
+                   hover:shadow-2xl transition-all duration-500"
+          >
+            <!-- Fondo con gradiente -->
+            <div 
+              class={`h-40 bg-gradient-to-br ${flavor.color} 
+                     flex items-center justify-center text-6xl
+                     group-hover:scale-110 transition-transform duration-500`}
+              aria-hidden="true"
+            >
+              {flavor.emoji}
+            </div>
+            
+            <!-- Contenido -->
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-2">
+                {flavor.name}
+              </h3>
+              <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed">
+                {flavor.description}
+              </p>
+            </div>
+
+            <!-- Overlay al hover -->
+            <div 
+              class="absolute inset-0 bg-gradient-to-t from-agua-900/90 to-transparent 
+                     opacity-0 group-hover:opacity-100 
+                     flex items-end justify-center pb-8
+                     transition-opacity duration-300"
+            >
+              <a 
+                href="/sabores"
+                class="px-6 py-2 bg-white text-agua-800 rounded-full font-medium
+                       hover:bg-agua-50 transition-colors"
+              >
+                Ver más
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mt-12">
+        <a href="/sabores" class="btn-primary">
+          Ver todos los sabores
+          <svg 
+            class="w-5 h-5 ml-2" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final Section -->
+  <section 
+    class="section-padding bg-gradient-to-r from-agua-600 via-fresca-600 to-agua-700
+           dark:from-agua-800 dark:via-fresca-800 dark:to-agua-900"
+    aria-labelledby="cta-title"
+  >
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center text-white">
+        <h2 id="cta-title" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          ¿Listo para refrescarte?
+        </h2>
+        <p class="text-lg md:text-xl text-agua-100 mb-8 leading-relaxed">
+          Haz tu pedido ahora y disfruta de las aguas de sabor más deliciosas. 
+          ¡Entrega a domicilio disponible!
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a 
+            href="https://wa.me/5212345678901" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-8 py-4 
+                   bg-white text-agua-700 font-semibold rounded-full
+                   shadow-xl hover:shadow-2xl
+                   transform hover:-translate-y-1
+                   transition-all duration-300"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Pedir por WhatsApp
+          </a>
+          <a 
+            href="/contacto" 
+            class="inline-flex items-center gap-2 px-8 py-4 
+                   border-2 border-white text-white font-semibold rounded-full
+                   hover:bg-white/10
+                   transition-all duration-300"
+          >
+            Más información
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

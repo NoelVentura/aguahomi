@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  /* Estilos base para modo claro */
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f0fdfa;
+    --color-text-primary: #134e4a;
+    --color-text-secondary: #0f766e;
+    --color-accent: #14b8a6;
+  }
+
+  /* Estilos base para modo oscuro */
+  .dark {
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-text-primary: #f0fdfa;
+    --color-text-secondary: #99f6e4;
+    --color-accent: #2dd4bf;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white dark:bg-slate-900 text-agua-900 dark:text-agua-50 transition-colors duration-300;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    @apply font-semibold;
+  }
+
+  /* Focus visible para accesibilidad */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-agua-500 dark:outline-agua-400;
+  }
+
+  /* Selección de texto con colores de marca */
+  ::selection {
+    @apply bg-agua-200 dark:bg-agua-700 text-agua-900 dark:text-agua-50;
+  }
+}
+
+@layer components {
+  /* Botón primario */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-gradient-to-r from-agua-500 to-fresca-500 
+           hover:from-agua-600 hover:to-fresca-600
+           text-white font-semibold rounded-full
+           shadow-lg hover:shadow-xl
+           transform hover:-translate-y-0.5
+           transition-all duration-300 ease-out
+           focus:ring-4 focus:ring-agua-300 dark:focus:ring-agua-700;
+  }
+
+  /* Botón secundario */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3
+           border-2 border-agua-500 dark:border-agua-400
+           text-agua-600 dark:text-agua-400 font-semibold rounded-full
+           hover:bg-agua-50 dark:hover:bg-agua-900/30
+           transition-all duration-300 ease-out
+           focus:ring-4 focus:ring-agua-300 dark:focus:ring-agua-700;
+  }
+
+  /* Card con efecto de vidrio */
+  .glass-card {
+    @apply bg-white/80 dark:bg-slate-800/80 
+           backdrop-blur-lg 
+           border border-agua-100 dark:border-slate-700
+           rounded-2xl shadow-xl;
+  }
+
+  /* Contenedor principal */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Sección con padding estándar */
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  /* Título de sección */
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold 
+           text-agua-800 dark:text-agua-100
+           mb-4;
+  }
+
+  /* Subtítulo de sección */
+  .section-subtitle {
+    @apply text-lg md:text-xl text-agua-600 dark:text-agua-300
+           max-w-2xl mx-auto;
+  }
+}
+
+@layer utilities {
+  /* Gradiente de texto */
+  .text-gradient {
+    @apply bg-gradient-to-r from-agua-600 via-fresca-500 to-sabor-500 
+           bg-clip-text text-transparent;
+  }
+
+  /* Animación de entrada */
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
+  }
+
+  .animate-on-scroll.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
