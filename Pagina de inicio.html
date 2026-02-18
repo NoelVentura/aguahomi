@@ -432,7 +432,9 @@
           <!-- Característica 2 -->
           <article class="relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
             <div class="absolute inset-0">
-              <img src="imagenes/Frescura.png" alt="" class="w-full h-full object-cover" />
+              <video autoplay muted loop playsinline preload="auto" poster="imagenes/Frescura.png" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
+                <source src="video/aguavidep.mp4" type="video/mp4">
+              </video>
               <div class="absolute inset-0 bg-slate-900/50"></div>
             </div>
             <div class="relative p-8 text-center">
@@ -487,17 +489,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/Jamaica.png" alt="Jamaica" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Jamaica</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">El clásico sabor de la flor de jamaica, refrescante y lleno de antioxidantes.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -506,17 +519,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/Pepino.png" alt="Pepino" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Pepino, con limón y apio</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">Fresco y ligero, con el toque cítrico del limón y la frescura del apio.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -525,17 +549,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/sandia.png" alt="Sandía" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Sandía</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">Dulce y refrescante, el sabor del verano en cada sorbo.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -544,17 +579,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/Naranja.png" alt="Naranja" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Naranja</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">Refrescante y dulce, con el vibrante sabor cítrico y natural que todos disfrutamos.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -563,17 +609,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/Guayaba.png" alt="Guayaba con Hierba Buena" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Guayaba con Hierba Buena</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">Una combinación tropical y refrescante, perfecta para revitalizar tu día.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -582,17 +639,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/Fresa.png" alt="Fresa" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Fresa</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">Dulce y aromática, el sabor clásico de las fresas frescas que encanta a todos.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -601,17 +669,28 @@
             <div class="h-80 overflow-hidden">
               <img src="imagenes/Mango.png" alt="Mango" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
             </div>
-            <div class="p-6 flex flex-col h-56">
+            <div class="p-6 flex flex-col h-72">
               <h3 class="text-xl font-semibold text-agua-800 dark:text-agua-100 mb-1" style="font-family: 'Poppins', sans-serif;">Mango</h3>
               <span class="inline-block px-2 py-0.5 bg-cyan-500/20 text-cyan-400 text-xs font-medium rounded-full mb-2 w-fit">500 ml</span>
               <p class="text-agua-600 dark:text-agua-300 text-sm leading-relaxed flex-grow">Tropical y dulce, el sabor exótico del mango que te transporta al paraíso.</p>
-              <div class="mt-auto flex items-center justify-center">
+              <div class="mt-auto space-y-2">
+              <div class="flex items-center justify-center gap-2 flex-wrap">
                 <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
                   <button type="button" onclick="updateQty(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
                   <span class="qty-value w-12 text-center text-white font-bold text-xl">0</span>
                   <button type="button" onclick="updateQty(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
                 </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">500 ml</span>
               </div>
+              <div class="flex items-center justify-center gap-2 flex-wrap">
+                <div class="flex items-center bg-slate-700/50 rounded-full px-2 py-1">
+                  <button type="button" onclick="updateQty355(this, -1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">−</button>
+                  <span class="qty-value-355 w-12 text-center text-white font-bold text-xl">0</span>
+                  <button type="button" onclick="updateQty355(this, 1)" class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold hover:bg-slate-600 rounded-full transition-colors">+</button>
+                </div>
+                <span class="text-sm font-medium text-agua-600 dark:text-agua-400">355 ml</span>
+              </div>
+            </div>
             </div>
           </article>
 
@@ -748,8 +827,9 @@
     document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
     document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
 
-    // Precio por botella
-    const PRECIO_BOTELLA = 38;
+    // Precio por botella (500 ml = $40, 355 ml = $35)
+    const PRECIO_BOTELLA = 40;
+    const PRECIO_355 = 35;
 
     // Función para actualizar cantidad y carrito
     function updateQty(btn, change) {
@@ -762,13 +842,24 @@
       saveCartToStorage();
     }
 
+    // Función para actualizar cantidad 355 ml
+    function updateQty355(btn, change) {
+      const container = btn.parentElement;
+      const qtySpan = container.querySelector('.qty-value-355');
+      let qty = parseInt(qtySpan.textContent);
+      qty = Math.max(0, qty + change);
+      qtySpan.textContent = qty;
+      updateCartTotal();
+      saveCartToStorage();
+    }
+
     // Función para actualizar el total del carrito
     function updateCartTotal() {
       const allQty = document.querySelectorAll('.qty-value');
+      const allQty355 = document.querySelectorAll('.qty-value-355');
       let total = 0;
-      allQty.forEach(span => {
-        total += parseInt(span.textContent);
-      });
+      allQty.forEach(span => { total += parseInt(span.textContent); });
+      allQty355.forEach(span => { total += parseInt(span.textContent); });
       
       const cartCount = document.getElementById('cart-count');
       const cartCountMobile = document.getElementById('cart-count-mobile');
@@ -792,12 +883,21 @@
       tarjetas.forEach(tarjeta => {
         const nombre = tarjeta.querySelector('h3').textContent;
         const cantidad = parseInt(tarjeta.querySelector('.qty-value').textContent);
+        const cantidad355 = parseInt(tarjeta.querySelector('.qty-value-355').textContent);
         if (cantidad > 0) {
           productos.push({
-            nombre: nombre,
+            nombre: nombre + ' (500 ml)',
             cantidad: cantidad,
             precio: PRECIO_BOTELLA,
             subtotal: cantidad * PRECIO_BOTELLA
+          });
+        }
+        if (cantidad355 > 0) {
+          productos.push({
+            nombre: nombre + ' (355 ml)',
+            cantidad: cantidad355,
+            precio: PRECIO_355,
+            subtotal: cantidad355 * PRECIO_355
           });
         }
       });
