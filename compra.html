@@ -395,8 +395,10 @@
     // Cargar resumen al iniciar
     loadCartSummary();
 
-    // Manejo del formulario: envío por form POST (misma pestaña → script redirige a compra-ok → inicio)
+    // Manejo del formulario: envío en iframe oculto para no salir de la página; mostramos gracias y redirigimos al inicio
     var submitBtnRef = null;
+
+    document.getElementById('purchase-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -420,11 +422,11 @@
         return p.nombre + ' (' + p.cantidad + ')';
       }).join(', ');
       
-      // Enviar en la misma pestaña; el script redirige a compra-ok.html y luego al inicio
+      // Enviar en iframe oculto: el pedido se guarda en la hoja; esta página no depende de la respuesta del script
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = GOOGLE_SCRIPT_URL;
-      form.target = '_self';
+      form.target = 'hidden-form-target';
       form.setAttribute('enctype', 'application/x-www-form-urlencoded');
       form.style.display = 'none';
       
@@ -453,6 +455,17 @@
       submitBtnRef.textContent = 'Enviando...';
       submitBtnRef.disabled = true;
       form.submit();
+
+      // No esperamos respuesta del script: mostramos éxito y redirigimos al inicio (el pedido ya se envía al iframe)
+      setTimeout(function() {
+        localStorage.removeItem('carrito');
+        if (submitBtnRef) {
+          submitBtnRef.textContent = 'Confirmar Pedido';
+          submitBtnRef.disabled = false;
+        }
+        if (form.parentNode) form.parentNode.removeChild(form);
+        window.location.href = 'compra-ok.html';
+      }, 1500);
     });
   </script>
 
