@@ -425,6 +425,7 @@
       form.method = 'POST';
       form.action = GOOGLE_SCRIPT_URL;
       form.target = 'hidden-form-target';
+      form.setAttribute('enctype', 'application/x-www-form-urlencoded');
       form.style.display = 'none';
       
       var campos = {
@@ -442,28 +443,29 @@
         var input = document.createElement('input');
         input.type = 'hidden';
         input.name = key;
-        input.value = campos[key];
+        input.value = String(campos[key] || '');
         form.appendChild(input);
       }
       
       document.body.appendChild(form);
       form.submit();
-      document.body.removeChild(form);
+      // No quitar el form hasta después del timeout para que el envío no se cancele
       
       const submitBtn = document.querySelector('button[type="submit"]');
       const btnTextoOriginal = submitBtn.textContent;
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
       
-      // Dar tiempo al envío; luego mostrar éxito (no podemos leer respuesta por CORS)
+      // Dar tiempo al envío; luego mostrar éxito y limpiar
       setTimeout(function() {
+        if (form.parentNode) form.parentNode.removeChild(form);
         localStorage.removeItem('carrito');
         loadCartSummary();
         document.getElementById('purchase-form').reset();
         alert('¡Gracias por tu pedido, ' + nombre + '!\n\nTu pedido ha sido registrado.\nTe contactaremos pronto para confirmar tu entrega.');
         submitBtn.textContent = btnTextoOriginal;
         submitBtn.disabled = false;
-      }, 2500);
+      }, 3000);
     });
   </script>
 
