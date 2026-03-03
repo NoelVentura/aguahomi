@@ -16,9 +16,32 @@ function doPost(e) {
   try {
     var datos = {};
 
-    // Aceptar JSON (fetch) o datos de formulario (form POST para evitar CORS)
+    // Aceptar JSON (fetch) o datos de formulario (form POST)
     if (e.postData && e.postData.contents) {
-      datos = JSON.parse(e.postData.contents);
+      var type = (e.postData.type || '').toLowerCase();
+      if (type.indexOf('json') !== -1) {
+        datos = JSON.parse(e.postData.contents);
+      } else if (type.indexOf('x-www-form-urlencoded') !== -1 || e.parameter) {
+        // Formulario: usar e.parameter o parsear el cuerpo
+        if (e.parameter && (e.parameter.nombre || e.parameter.calle)) {
+          datos = {
+            nombre: e.parameter.nombre || '',
+            calle: e.parameter.calle || '',
+            colonia: e.parameter.colonia || '',
+            codigoPostal: e.parameter.codigoPostal || '',
+            ciudad: e.parameter.ciudad || '',
+            telefono: e.parameter.telefono || '',
+            metodoPago: e.parameter.metodoPago || '',
+            productos: e.parameter.productos || '',
+            total: e.parameter.total || '',
+            redirectSuccess: e.parameter.redirectSuccess || ''
+          };
+        } else {
+          datos = parseFormUrlEncoded(e.postData.contents);
+        }
+      } else {
+        datos = parseFormUrlEncoded(e.postData.contents);
+      }
     } else if (e.parameter) {
       datos = {
         nombre: e.parameter.nombre || '',
@@ -29,7 +52,8 @@ function doPost(e) {
         telefono: e.parameter.telefono || '',
         metodoPago: e.parameter.metodoPago || '',
         productos: e.parameter.productos || '',
-        total: e.parameter.total || ''
+        total: e.parameter.total || '',
+        redirectSuccess: e.parameter.redirectSuccess || ''
       };
     }
 
@@ -70,18 +94,22 @@ function doPost(e) {
 
     hoja.appendRow(fila);
 
-    // Devolver HTML que notifica al padre (iframe) para confirmar que sí se guardó
-    return respuestaHtmlOk();
+    var redirectUrl = datos.redirectSuccess || '';
+    return respuestaHtmlOk(redirectUrl);
   } catch (err) {
     return respuestaHtmlError(err.toString());
   }
 }
 
 /** Devuelve HTML que avisa a la página de compra que el pedido SÍ se guardó */
-function respuestaHtmlOk() {
+function respuestaHtmlOk(redirectUrl) {
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
-  html += '<script>if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script>';
-  html += '<p>Pedido registrado correctamente.</p></body></html>';
+  if (redirectUrl) {
+    html += '<script>window.location.href="' + redirectUrl.replace(/"/g, '&quot;') + '";</script>';
+  } else {
+    html += '<script>if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script>';
+  }
+  html += '<p>Redirigiendo...</p></body></html>';
   return ContentService.createTextOutput(html).setMimeType(ContentService.MimeType.HTML);
 }
 
@@ -98,4 +126,20 @@ function respuestaJson(codigo, objeto) {
   var output = ContentService.createTextOutput(JSON.stringify(objeto))
     .setMimeType(ContentService.MimeType.JSON);
   return output;
+}
+
+/** Parsea cuerpo application/x-www-form-urlencoded cuando e.parameter no viene lleno */
+function parseFormUrlEncoded(contents) {
+  var datos = { nombre: '', calle: '', colonia: '', codigoPostal: '', ciudad: '', telefono: '', metodoPago: '', productos: '', total: '', redirectSuccess: '' };
+  if (!contents) return datos;
+  var partes = contents.split('&');
+  for (var i = 0; i < partes.length; i++) {
+    var kv = partes[i].split('=');
+    if (kv.length >= 2) {
+      var key = decodeURIComponent(kv[0].replace(/\+/g, ' '));
+      var val = decodeURIComponent(kv.slice(1).join('=').replace(/\+/g, ' '));
+      if (datos.hasOwnProperty(key)) datos[key] = val;
+    }
+  }
+  return datos;
 }

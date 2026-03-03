@@ -465,7 +465,8 @@
         telefono: telefono,
         metodoPago: metodoPago,
         productos: productosLista,
-        total: '$' + total + '.00'
+        total: '$' + total + '.00',
+        redirectSuccess: window.location.origin + window.location.pathname.replace('compra.html', 'compra-ok.html')
       };
       for (var key in campos) {
         var input = document.createElement('input');
