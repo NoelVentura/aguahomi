@@ -485,7 +485,7 @@
       
       form.submit();
 
-      // Si en 6 segundos no llega confirmación, avisar que no se pudo verificar
+      // Si en 8 segundos no llega confirmación, avisar que no se pudo verificar
       timeoutRespuesta = setTimeout(function() {
         if (!esperandoRespuesta) return;
         esperandoRespuesta = false;
@@ -493,7 +493,7 @@
         submitBtnRef.disabled = false;
         if (form.parentNode) form.parentNode.removeChild(form);
         alert('No se pudo confirmar el registro en la base de datos.\n\nComprueba que el pedido aparezca en tu hoja de Google. Si no está, intenta de nuevo o contáctanos por WhatsApp.');
-      }, 6000);
+      }, 8000);
     });
   </script>
 

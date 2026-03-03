@@ -103,13 +103,13 @@ function doPost(e) {
 
 /** Devuelve HTML que avisa a la página de compra que el pedido SÍ se guardó */
 function respuestaHtmlOk(redirectUrl) {
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">';
   if (redirectUrl) {
-    html += '<script>window.location.href="' + redirectUrl.replace(/"/g, '&quot;') + '";</script>';
-  } else {
-    html += '<script>if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script>';
+    var safeUrl = redirectUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    html += '<meta http-equiv="refresh" content="0;url=' + safeUrl + '">';
+    html += '<script>try{window.location.href="' + redirectUrl.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/</g, '\\u003c') + '";}catch(e){}</script>';
   }
-  html += '<p>Redirigiendo...</p></body></html>';
+  html += '</head><body><script>if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script><p>Redirigiendo...</p></body></html>';
   return ContentService.createTextOutput(html).setMimeType(ContentService.MimeType.HTML);
 }
 
