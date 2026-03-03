@@ -14,6 +14,9 @@
 
 function doPost(e) {
   try {
+    if (!e) {
+      return respuestaHtmlError('No se recibió la petición. Verifica la URL del script.');
+    }
     var datos = {};
 
     // Aceptar JSON (fetch) o datos de formulario (form POST)
