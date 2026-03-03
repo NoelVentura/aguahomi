@@ -6,11 +6,17 @@
   <title>Pedido registrado</title>
 </head>
 <body>
-  <p>Pedido registrado correctamente.</p>
+  <p>Pedido registrado correctamente. Esta ventana se cerrar&aacute;.</p>
   <script>
-    if (window.parent !== window) {
-      window.parent.postMessage('aguahomi_ok', '*');
-    }
+    (function() {
+      if (window.opener) {
+        window.opener.postMessage('aguahomi_ok', '*');
+        window.close();
+      }
+      if (window.parent !== window) {
+        window.parent.postMessage('aguahomi_ok', '*');
+      }
+    })();
   </script>
 </body>
 </html>
