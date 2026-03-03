@@ -14,11 +14,29 @@
 
 function doPost(e) {
   try {
-    if (!e || !e.postData || !e.postData.contents) {
+    var datos = {};
+
+    // Aceptar JSON (fetch) o datos de formulario (form POST para evitar CORS)
+    if (e.postData && e.postData.contents) {
+      datos = JSON.parse(e.postData.contents);
+    } else if (e.parameter) {
+      datos = {
+        nombre: e.parameter.nombre || '',
+        calle: e.parameter.calle || '',
+        colonia: e.parameter.colonia || '',
+        codigoPostal: e.parameter.codigoPostal || '',
+        ciudad: e.parameter.ciudad || '',
+        telefono: e.parameter.telefono || '',
+        metodoPago: e.parameter.metodoPago || '',
+        productos: e.parameter.productos || '',
+        total: e.parameter.total || ''
+      };
+    }
+
+    if (!datos.nombre && !datos.calle) {
       return respuestaJson(400, { success: false, error: 'No se recibieron datos' });
     }
 
-    var datos = JSON.parse(e.postData.contents);
     var hoja = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
     // Si la hoja está vacía, escribe encabezados en la primera fila

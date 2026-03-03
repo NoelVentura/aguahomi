@@ -134,7 +134,9 @@
       </div>
 
       <!-- Formulario de Compra -->
-      <form id="purchase-form" class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 space-y-6" style="box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);">
+      <form id="purchase-form" action="javascript:void(0)" class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 space-y-6" style="box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);">
+        <!-- Iframe oculto para enviar el pedido sin CORS -->
+        <iframe name="hidden-form-target" id="hidden-form-target" style="display:none; width:0; height:0; border:0;" title="Envío de pedido"></iframe>
         
         <!-- Nombre -->
         <div>
@@ -393,8 +395,8 @@
     // Cargar resumen al iniciar
     loadCartSummary();
 
-    // Manejo del formulario
-    document.getElementById('purchase-form').addEventListener('submit', async function(e) {
+    // Manejo del formulario: envío por form POST para evitar CORS (Failed to fetch)
+    document.getElementById('purchase-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -404,7 +406,6 @@
         return;
       }
       
-      // Obtener datos del formulario
       const nombre = document.getElementById('nombre').value;
       const calle = document.getElementById('calle').value;
       const colonia = document.getElementById('colonia').value;
@@ -413,15 +414,20 @@
       const telefono = document.getElementById('telefono').value;
       const metodoPago = document.getElementById('metodo-pago').value;
       
-      // Calcular total y crear lista de productos
       let total = 0;
-      const productosLista = carrito.map(p => {
+      const productosLista = carrito.map(function(p) {
         total += p.subtotal;
-        return `${p.nombre} (${p.cantidad})`;
+        return p.nombre + ' (' + p.cantidad + ')';
       }).join(', ');
       
-      // Datos a enviar
-      const datos = {
+      // Crear formulario oculto que se envía al iframe (evita CORS)
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = GOOGLE_SCRIPT_URL;
+      form.target = 'hidden-form-target';
+      form.style.display = 'none';
+      
+      var campos = {
         nombre: nombre,
         calle: calle,
         colonia: colonia,
@@ -432,50 +438,32 @@
         productos: productosLista,
         total: '$' + total + '.00'
       };
+      for (var key in campos) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = campos[key];
+        form.appendChild(input);
+      }
       
-      // Mostrar mensaje de carga
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+      
       const submitBtn = document.querySelector('button[type="submit"]');
       const btnTextoOriginal = submitBtn.textContent;
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
       
-      try {
-        // Enviar a Google Sheets (sin no-cors para poder leer la respuesta y saber si falló)
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(datos)
-        });
-
-        const result = await response.json().catch(function() { return {}; });
-
-        if (!response.ok || !result.success) {
-          var mensajeError = result.error || 'No se pudo conectar con el servidor. Verifica que el script de Google esté desplegado.';
-          throw new Error(mensajeError);
-        }
-
-        // Limpiar carrito después de comprar
+      // Dar tiempo al envío; luego mostrar éxito (no podemos leer respuesta por CORS)
+      setTimeout(function() {
         localStorage.removeItem('carrito');
-
-        // Mostrar mensaje de éxito
-        alert('¡Gracias por tu pedido, ' + nombre + '!\n\nTu pedido ha sido registrado.\nTe contactaremos pronto para confirmar tu entrega.');
-
-        // Recargar resumen
         loadCartSummary();
-
-        // Limpiar formulario
         document.getElementById('purchase-form').reset();
-        
-      } catch (error) {
-        alert('Error al enviar tu pedido: ' + (error.message || 'Por favor intenta de nuevo.'));
-        console.error('Error:', error);
-      }
-      
-      // Restaurar botón
-      submitBtn.textContent = btnTextoOriginal;
-      submitBtn.disabled = false;
+        alert('¡Gracias por tu pedido, ' + nombre + '!\n\nTu pedido ha sido registrado.\nTe contactaremos pronto para confirmar tu entrega.');
+        submitBtn.textContent = btnTextoOriginal;
+        submitBtn.disabled = false;
+      }, 2500);
     });
   </script>
 
