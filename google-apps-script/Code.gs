@@ -5,11 +5,12 @@
  * CÓMO USAR:
  * 1. Abre tu hoja: https://docs.google.com/spreadsheets/d/1v6geNnK7etFe-hxme_zCq4q4nwA1tbE5EfcQG0LuFIk/
  * 2. Menú Extensiones > Apps Script
- * 3. Pega este código, guarda (Ctrl+S)
- * 4. Despliega: Implementar > Nueva implementación > Tipo: Aplicación web
- *    - Al ejecutar como: Yo
- *    - Quién tiene acceso: Cualquier persona
- * 5. Copia la URL de la aplicación web y pégala en compra.html (GOOGLE_SCRIPT_URL)
+ * 3. BORRA todo el código anterior y pega ESTE archivo completo. Guarda (Ctrl+S).
+ * 4. Implementar > Gestionar implementaciones > Editar (lápiz) la actual > Desplegar.
+ * 5. La URL de la app web la tienes en compra.html (GOOGLE_SCRIPT_URL).
+ *
+ * Si en el navegador ves el HTML en crudo o URLs con errores (noalventura, sgushoml_ck, etc.),
+ * es que en Google está desplegada una versión vieja: repite los pasos 3 y 4.
  */
 
 function doPost(e) {
