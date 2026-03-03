@@ -112,16 +112,18 @@ function respuestaHtmlOk(redirectUrl) {
     html += '<meta http-equiv="refresh" content="0;url=' + safeUrl + '">';
     html += '<script>try{window.location.href="' + redirectUrl.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/</g, '\\u003c') + '";}catch(e){}</script>';
   }
-  html += '</head><body><script>if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script><p>Redirigiendo...</p></body></html>';
-  return ContentService.createTextOutput(html).setMimeType(ContentService.MimeType.HTML);
+  html += '</head><body><script>if(window.opener){window.opener.postMessage("aguahomi_ok","*");}if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script><p>Redirigiendo...</p></body></html>';
+  return HtmlService.createHtmlOutput(html);
 }
 
 /** Devuelve HTML que avisa a la página de compra que hubo un error */
 function respuestaHtmlError(mensaje) {
+  var safe = (mensaje || '').toString()
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
-  html += '<script>if(window.parent!==window){window.parent.postMessage("aguahomi_error","*");}</script>';
-  html += '<p>Error: ' + mensaje + '</p></body></html>';
-  return ContentService.createTextOutput(html).setMimeType(ContentService.MimeType.HTML);
+  html += '<script>if(window.opener){window.opener.postMessage("aguahomi_error","*");}if(window.parent!==window){window.parent.postMessage("aguahomi_error","*");}</script>';
+  html += '<p>Error: ' + safe + '</p></body></html>';
+  return HtmlService.createHtmlOutput(html);
 }
 
 /** Respuesta JSON (para peticiones fetch si se usa en el futuro) */
