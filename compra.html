@@ -395,36 +395,8 @@
     // Cargar resumen al iniciar
     loadCartSummary();
 
-    // Manejo del formulario: envío por form POST para evitar CORS (Failed to fetch)
-    var esperandoRespuesta = false;
-    var timeoutRespuesta = null;
-    var datosEnvio = null;
+    // Manejo del formulario: envío por form POST (misma pestaña → script redirige a compra-ok → inicio)
     var submitBtnRef = null;
-
-    window.addEventListener('message', function(event) {
-      if (event.data === 'aguahomi_ok' && esperandoRespuesta) {
-        esperandoRespuesta = false;
-        if (timeoutRespuesta) clearTimeout(timeoutRespuesta);
-        if (datosEnvio && submitBtnRef) {
-          localStorage.removeItem('carrito');
-          loadCartSummary();
-          document.getElementById('purchase-form').reset();
-          alert('¡Gracias por tu pedido, ' + datosEnvio.nombre + '!\n\nTu pedido ha sido registrado en la base de datos.\nTe contactaremos pronto para confirmar tu entrega.');
-        }
-        submitBtnRef.textContent = 'Confirmar Pedido';
-        submitBtnRef.disabled = false;
-        if (datosEnvio && datosEnvio.formRef && datosEnvio.formRef.parentNode) datosEnvio.formRef.parentNode.removeChild(datosEnvio.formRef);
-      }
-      if (event.data === 'aguahomi_error' && esperandoRespuesta) {
-        esperandoRespuesta = false;
-        if (timeoutRespuesta) clearTimeout(timeoutRespuesta);
-        if (submitBtnRef) { submitBtnRef.textContent = 'Confirmar Pedido'; submitBtnRef.disabled = false; }
-        alert('No se pudo registrar el pedido. Por favor intenta de nuevo o contáctanos por WhatsApp.');
-        if (datosEnvio && datosEnvio.formRef && datosEnvio.formRef.parentNode) datosEnvio.formRef.parentNode.removeChild(datosEnvio.formRef);
-      }
-    });
-
-    document.getElementById('purchase-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
       const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -448,11 +420,11 @@
         return p.nombre + ' (' + p.cantidad + ')';
       }).join(', ');
       
-      // Enviar en nueva pestaña para evitar bloqueos del iframe; la pestaña cargará compra-ok y enviará postMessage al padre
+      // Enviar en la misma pestaña; el script redirige a compra-ok.html y luego al inicio
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = GOOGLE_SCRIPT_URL;
-      form.target = '_blank';
+      form.target = '_self';
       form.setAttribute('enctype', 'application/x-www-form-urlencoded');
       form.style.display = 'none';
       
@@ -477,23 +449,10 @@
       }
       
       document.body.appendChild(form);
-      esperandoRespuesta = true;
-      datosEnvio = { nombre: nombre, formRef: form };
       submitBtnRef = document.querySelector('button[type="submit"]');
       submitBtnRef.textContent = 'Enviando...';
       submitBtnRef.disabled = true;
-      
       form.submit();
-
-      // Si en 8 segundos no llega confirmación, avisar que no se pudo verificar
-      timeoutRespuesta = setTimeout(function() {
-        if (!esperandoRespuesta) return;
-        esperandoRespuesta = false;
-        submitBtnRef.textContent = 'Confirmar Pedido';
-        submitBtnRef.disabled = false;
-        if (form.parentNode) form.parentNode.removeChild(form);
-        alert('No se pudo confirmar el registro en la base de datos.\n\nComprueba que el pedido aparezca en tu hoja de Google. Si no está, intenta de nuevo o contáctanos por WhatsApp.');
-      }, 8000);
     });
   </script>
 

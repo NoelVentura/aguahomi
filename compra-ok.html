@@ -1,21 +1,64 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pedido registrado</title>
+  <meta http-equiv="refresh" content="4;url=Pagina de inicio.html" />
+  <title>Pedido enviado | AGUAHOMI</title>
+  <meta name="theme-color" content="#14b8a6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            agua: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' },
+            fresca: { 50: '#ecfeff', 100: '#cffafe', 200: '#a5f3fc', 300: '#67e8f9', 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490', 800: '#155e75', 900: '#164e63' },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], display: ['Poppins', 'system-ui', 'sans-serif'] },
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="public/favicon.svg" />
+  <style> body { font-family: 'Inter', system-ui, sans-serif; } </style>
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
 </head>
-<body>
-  <p>Pedido registrado correctamente. Esta ventana se cerrar&aacute;.</p>
+<body class="bg-gradient-to-br from-agua-50 via-white to-fresca-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 min-h-screen flex flex-col items-center justify-center px-4">
+  <div class="max-w-md w-full text-center">
+    <div class="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-agua-100 dark:bg-agua-900/50 text-agua-600 dark:text-agua-400">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h1 class="font-display font-bold text-2xl md:text-3xl text-agua-800 dark:text-agua-200 mb-2">Pedido enviado</h1>
+    <p class="text-lg text-agua-700 dark:text-agua-300 mb-6">Gracias por tu compra. Te contactaremos pronto para confirmar tu entrega.</p>
+    <p class="text-sm text-agua-600 dark:text-agua-400 mb-8" id="cuenta-atras">Redirigiendo al inicio en <span id="segundos">4</span> segundos...</p>
+    <a href="Pagina de inicio.html" class="inline-flex items-center justify-center px-8 py-3 bg-agua-500 hover:bg-agua-600 text-white font-semibold rounded-full transition-colors shadow-lg">Volver al inicio</a>
+  </div>
   <script>
     (function() {
-      if (window.opener) {
-        window.opener.postMessage('aguahomi_ok', '*');
-        window.close();
-      }
-      if (window.parent !== window) {
-        window.parent.postMessage('aguahomi_ok', '*');
-      }
+      var s = 4;
+      var el = document.getElementById('segundos');
+      var iv = setInterval(function() {
+        s--;
+        if (el) el.textContent = s;
+        if (s <= 0) {
+          clearInterval(iv);
+          window.location.href = 'Pagina de inicio.html';
+        }
+      }, 1000);
     })();
   </script>
 </body>
