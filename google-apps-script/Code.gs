@@ -34,7 +34,7 @@ function doPost(e) {
     }
 
     if (!datos.nombre && !datos.calle) {
-      return respuestaJson(400, { success: false, error: 'No se recibieron datos' });
+      return respuestaHtmlError('No se recibieron datos');
     }
 
     var hoja = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -70,13 +70,30 @@ function doPost(e) {
 
     hoja.appendRow(fila);
 
-    return respuestaJson(200, { success: true, message: 'Pedido registrado' });
+    // Devolver HTML que notifica al padre (iframe) para confirmar que sí se guardó
+    return respuestaHtmlOk();
   } catch (err) {
-    return respuestaJson(500, { success: false, error: err.toString() });
+    return respuestaHtmlError(err.toString());
   }
 }
 
-/** Respuesta JSON con CORS para que el navegador pueda leerla */
+/** Devuelve HTML que avisa a la página de compra que el pedido SÍ se guardó */
+function respuestaHtmlOk() {
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
+  html += '<script>if(window.parent!==window){window.parent.postMessage("aguahomi_ok","*");}</script>';
+  html += '<p>Pedido registrado correctamente.</p></body></html>';
+  return ContentService.createTextOutput(html).setMimeType(ContentService.MimeType.HTML);
+}
+
+/** Devuelve HTML que avisa a la página de compra que hubo un error */
+function respuestaHtmlError(mensaje) {
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
+  html += '<script>if(window.parent!==window){window.parent.postMessage("aguahomi_error","*");}</script>';
+  html += '<p>Error: ' + mensaje + '</p></body></html>';
+  return ContentService.createTextOutput(html).setMimeType(ContentService.MimeType.HTML);
+}
+
+/** Respuesta JSON (para peticiones fetch si se usa en el futuro) */
 function respuestaJson(codigo, objeto) {
   var output = ContentService.createTextOutput(JSON.stringify(objeto))
     .setMimeType(ContentService.MimeType.JSON);
