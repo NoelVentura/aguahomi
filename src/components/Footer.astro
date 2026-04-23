@@ -1,5 +1,6 @@
 ---
 // Footer.astro - Pie de página minimalista y profesional para AGUAHOMI
+const base = import.meta.env.BASE_URL;
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
@@ -34,7 +35,7 @@ const socialLinks = [
         
         <!-- Logo y descripción -->
         <div class="md:col-span-1">
-          <a href="/" class="inline-flex items-center gap-2 mb-4 group">
+          <a href={base} class="inline-flex items-center gap-2 mb-4 group">
             <svg 
               class="w-8 h-8 text-agua-400 group-hover:text-agua-300 transition-colors"
               viewBox="0 0 24 24" 
@@ -56,22 +57,22 @@ const socialLinks = [
           <h3 class="text-white font-semibold mb-4">Enlaces</h3>
           <ul class="space-y-2">
             <li>
-              <a href="/" class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
+              <a href={base} class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
                 Inicio
               </a>
             </li>
             <li>
-              <a href="/sabores" class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
+              <a href={`${base}Pagina de inicio.html#sabores`} class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
                 Nuestros Sabores
               </a>
             </li>
             <li>
-              <a href="/nosotros" class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
+              <a href={`${base}nosotros.html`} class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
                 Sobre Nosotros
               </a>
             </li>
             <li>
-              <a href="/contacto" class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
+              <a href={`${base}contacto.html`} class="text-agua-300 dark:text-slate-400 hover:text-white transition-colors text-sm">
                 Contacto
               </a>
             </li>
@@ -115,11 +116,11 @@ const socialLinks = [
           <span class="block md:inline">Lo aprendí en Top Learning.</span>
         </p>
         <div class="flex items-center gap-4 text-sm">
-          <a href="/privacidad" class="text-agua-400 dark:text-slate-500 hover:text-white transition-colors">
+          <a href={`${base}privacidad`} class="text-agua-400 dark:text-slate-500 hover:text-white transition-colors">
             Privacidad
           </a>
           <span class="text-agua-700 dark:text-slate-700">|</span>
-          <a href="/terminos" class="text-agua-400 dark:text-slate-500 hover:text-white transition-colors">
+          <a href={`${base}terminos`} class="text-agua-400 dark:text-slate-500 hover:text-white transition-colors">
             Términos
           </a>
         </div>

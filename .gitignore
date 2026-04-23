@@ -1,3 +1,13 @@
+# Copia generada por prebuild (origen: raíz del repo)
+public/Pagina de inicio.html
+public/nosotros.html
+public/contacto.html
+public/compra.html
+public/compra-ok.html
+public/imagenes/
+public/video/
+public/fuentes/
+
 # build output
 dist/
 

@@ -2,6 +2,8 @@
 // index.astro - Página de inicio de AGUAHOMI
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const base = import.meta.env.BASE_URL;
+
 // Datos de las características
 const features = [
   {
@@ -126,7 +128,7 @@ const featuredFlavors = [
           style="animation-delay: 0.2s"
         >
           <a 
-            href="/sabores" 
+            href={`${base}Pagina de inicio.html#sabores`} 
             class="btn-primary text-lg group"
           >
             Ver Sabores
@@ -141,7 +143,7 @@ const featuredFlavors = [
             </svg>
           </a>
           <a 
-            href="/contacto" 
+            href={`${base}contacto.html`} 
             class="btn-secondary text-lg"
           >
             Contáctanos
@@ -280,7 +282,7 @@ const featuredFlavors = [
                      transition-opacity duration-300"
             >
               <a 
-                href="/sabores"
+                href={`${base}Pagina de inicio.html#sabores`}
                 class="px-6 py-2 bg-white text-agua-800 rounded-full font-medium
                        hover:bg-agua-50 transition-colors"
               >
@@ -293,7 +295,7 @@ const featuredFlavors = [
 
       <!-- CTA -->
       <div class="text-center mt-12">
-        <a href="/sabores" class="btn-primary">
+        <a href={`${base}Pagina de inicio.html#sabores`} class="btn-primary">
           Ver todos los sabores
           <svg 
             class="w-5 h-5 ml-2" 
@@ -341,7 +343,7 @@ const featuredFlavors = [
             Pedir por WhatsApp
           </a>
           <a 
-            href="/contacto" 
+            href={`${base}contacto.html`} 
             class="inline-flex items-center gap-2 px-8 py-4 
                    border-2 border-white text-white font-semibold rounded-full
                    hover:bg-white/10

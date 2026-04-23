@@ -20,9 +20,13 @@ const {
   type = 'website',
 } = Astro.props;
 
-const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 const siteName = 'AGUAHOMI';
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const ogImageHref =
+  image.startsWith('http')
+    ? image
+    : new URL(`${base.replace(/\/$/, '')}${image}`, Astro.site ?? Astro.url.origin).href;
 ---
 
 <!DOCTYPE html>
@@ -34,9 +38,9 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" type="image/x-icon" href={`${base}favicon.ico`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}apple-touch-icon.png`} />
     
     <!-- SEO Básico -->
     <title>{fullTitle}</title>
@@ -50,7 +54,7 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site || Astro.url.origin).href} />
+    <meta property="og:image" content={ogImageHref} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="es_MX" />
     
@@ -59,7 +63,7 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.site || Astro.url.origin).href} />
+    <meta name="twitter:image" content={ogImageHref} />
     
     <!-- Tema y colores -->
     <meta name="theme-color" content="#14b8a6" media="(prefers-color-scheme: light)" />
@@ -99,7 +103,7 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
     </a>
     
     <!-- Header -->
-    <Header currentPath={currentPath} />
+    <Header />
     
     <!-- Contenido principal -->
     <main id="main-content" class="flex-grow" role="main">
@@ -108,6 +112,10 @@ const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
     
     <!-- Footer -->
     <Footer />
+    
+    <!-- Botpress Webchat -->
+    <script is:inline src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+    <script is:inline src="https://files.bpcontent.cloud/2026/04/01/21/20260401211525-XHX863BT.js" defer></script>
     
     <!-- Scripts adicionales por página -->
     <slot name="scripts" />

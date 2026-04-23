@@ -3,7 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "predev": "node scripts/sync-static-to-public.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/sync-static-to-public.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
