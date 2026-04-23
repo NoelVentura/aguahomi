@@ -25,6 +25,12 @@ for (const name of files) {
   }
 }
 
+// Raíz del sitio = misma página que Pagina de inicio.html (GitHub Pages /aguahomi/)
+const inicioSrc = path.join(root, 'Pagina de inicio.html');
+if (fs.existsSync(inicioSrc)) {
+  fs.copyFileSync(inicioSrc, path.join(pub, 'index.html'));
+}
+
 for (const dir of ['imagenes', 'video', 'fuentes']) {
   const src = path.join(root, dir);
   const dest = path.join(pub, dir);
@@ -32,4 +38,11 @@ for (const dir of ['imagenes', 'video', 'fuentes']) {
     fs.rmSync(dest, { recursive: true, force: true });
     fs.cpSync(src, dest, { recursive: true });
   }
+}
+
+// Favicon junto a los HTML en la raíz del proyecto (file:// y mismas rutas que en dist)
+const favSrc = path.join(pub, 'favicon.svg');
+const favRoot = path.join(root, 'favicon.svg');
+if (fs.existsSync(favSrc)) {
+  fs.copyFileSync(favSrc, favRoot);
 }

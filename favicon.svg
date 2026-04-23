@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="dropGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5eead4"/>
+      <stop offset="100%" style="stop-color:#67e8f9"/>
+    </linearGradient>
+  </defs>
+  <!-- Gota de agua exterior -->
+  <path d="M16 2C16 2 6 12 6 18.5C6 23.47 10.48 27.5 16 27.5C21.52 27.5 26 23.47 26 18.5C26 12 16 2 16 2Z" fill="url(#dropGradient)"/>
+  <!-- Gota de agua interior (reflejo) -->
+  <path d="M16 8C16 8 10 14 10 18C10 21.31 12.69 24 16 24C19.31 24 22 21.31 22 18C22 14 16 8 16 8Z" fill="url(#innerGradient)" opacity="0.4"/>
+  <!-- Brillo -->
+  <ellipse cx="12" cy="15" rx="2" ry="3" fill="white" opacity="0.6"/>
+</svg>
